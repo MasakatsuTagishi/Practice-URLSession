@@ -10,7 +10,6 @@ import Foundation
 class FetchUserData {
 
     func getUserDataFromGithubAPI(completion: @escaping (User) -> Void) {
-        var user: User = User(id: 0, name: "")
         let requestUrl = URL(string: "http://api.github.com/users/MasakatsuTagishi")!
         let task = URLSession.shared.dataTask(with: requestUrl) { data, response, error in
             if let error = error {
@@ -19,8 +18,7 @@ class FetchUserData {
                 let decoder = JSONDecoder()
                 do {
                     let decoded = try decoder.decode(User.self, from: data)
-                    user = decoded
-                    completion(user)
+                    completion(decoded)
                 } catch {
                     print("error")
                 }
